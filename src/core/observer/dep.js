@@ -11,7 +11,10 @@ let uid = 0
  * directives subscribing to it.
  */
 export default class Dep {
+  // 静态属性
   static target: ?Watcher;
+
+  // 标识每一个依赖的唯一id
   id: number;
   subs: Array<Watcher>;
 
@@ -20,6 +23,7 @@ export default class Dep {
     this.subs = []
   }
 
+  // 添加一个 subscriber 
   addSub (sub: Watcher) {
     this.subs.push(sub)
   }
@@ -30,6 +34,7 @@ export default class Dep {
 
   depend () {
     if (Dep.target) {
+      // 给当前的 Watcher 添加依赖
       Dep.target.addDep(this)
     }
   }
@@ -49,10 +54,13 @@ export default class Dep {
   }
 }
 
+// 正在被计算的watcher，全局唯一
 // The current target watcher being evaluated.
 // This is globally unique because only one watcher
 // can be evaluated at a time.
 Dep.target = null
+
+// REVIEW 这个栈的作用是什么
 const targetStack = []
 
 export function pushTarget (target: ?Watcher) {

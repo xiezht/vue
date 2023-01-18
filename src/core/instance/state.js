@@ -110,6 +110,7 @@ function initProps (vm: Component, propsOptions: Object) {
   toggleObserving(true)
 }
 
+// 面试REVIEW：这里是支持data使用对象的，为什么需要用函数呢？
 function initData (vm: Component) {
   let data = vm.$options.data
   data = vm._data = typeof data === 'function'
